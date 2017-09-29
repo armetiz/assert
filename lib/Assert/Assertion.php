@@ -214,6 +214,7 @@ class Assertion
     const INVALID_CALLABLE          = 215;
     const INVALID_KEY_NOT_EXISTS    = 216;
     const INVALID_SATISFY           = 217;
+    const NEVER_CALLED              = 218;
 
     /**
      * Exception to throw when an assertion failed.
@@ -231,6 +232,21 @@ class Assertion
     {
         $exceptionClass = static::$exceptionClass;
         return new $exceptionClass($message, $code, $propertyPath, $value, $constraints);
+    }
+
+    /**
+     * Assert that this line will be never called
+     *
+     * @param string|callable|null $message
+     * @param string|null          $propertyPath
+     *
+     * @throws \Assert\AssertionFailedException
+     */
+    public static function neverCalled($message = null, $propertyPath = null)
+    {
+        $message = 'Never called point reached.';
+
+        throw static::createException(null, $message, static::NEVER_CALLED, $propertyPath);
     }
 
     /**
